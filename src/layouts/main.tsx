@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -14,29 +14,14 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@/components/ui/menubar";
-import { Button } from "@/components/ui/button.tsx";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Sun16SolidIcon from "@/icons/Toggle.tsx";
-import ToggleRightIcon from "@/icons/Toggle.tsx";
+} from '@/components/ui/menubar';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ModeToggle } from '@/components/mode-toggle.tsx';
 
 export function MenubarMain() {
   return (
-    <div className="flex justify-between">
-      <Menubar className="w-72">
+    <div className='flex justify-between'>
+      <Menubar className='w-72'>
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
@@ -108,7 +93,7 @@ export function MenubarMain() {
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
-          <MenubarContent className="w-44">
+          <MenubarContent className='w-44'>
             <MenubarGroup>
               <MenubarCheckboxItem>Bookmarks Bar</MenubarCheckboxItem>
               <MenubarCheckboxItem checked>Full URLs</MenubarCheckboxItem>
@@ -135,10 +120,10 @@ export function MenubarMain() {
         <MenubarMenu>
           <MenubarTrigger>Profiles</MenubarTrigger>
           <MenubarContent>
-            <MenubarRadioGroup value="benoit">
-              <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
-              <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
-              <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
+            <MenubarRadioGroup value='benoit'>
+              <MenubarRadioItem value='andy'>Andy</MenubarRadioItem>
+              <MenubarRadioItem value='benoit'>Benoit</MenubarRadioItem>
+              <MenubarRadioItem value='Luis'>Luis</MenubarRadioItem>
             </MenubarRadioGroup>
             <MenubarSeparator />
             <MenubarGroup>
@@ -158,32 +143,23 @@ export function MenubarMain() {
 
 export function UsersAria() {
   return (
-    <div className=" flex flex-col bg-background text-foreground">
-      <DropdownMenu>
-        <DropdownMenuTrigger render={<Button variant="outline" />}>
-          <ToggleRightIcon size="40" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuGroup>
-            <DropdownMenuItem>System</DropdownMenuItem>
-            <DropdownMenuItem>Dark</DropdownMenuItem>
-            <DropdownMenuItem>Light</DropdownMenuItem>
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <div className=' flex flex-col bg-background text-foreground'>
+      <ModeToggle />
     </div>
   );
 }
 
 export function Layout({ children }: { readonly children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <header className="border-b p-4">
-        <MenubarMain />
-      </header>
-      <main className="flex-1 p-4">{children}</main>
-      <footer className="border-t p-4 text-center">© 2026</footer>
-    </div>
+    <ThemeProvider defaultTheme='dark' storageKey='theme'>
+      <div className='min-h-screen flex flex-col bg-background text-foreground'>
+        <header className='border-b p-4'>
+          <MenubarMain />
+        </header>
+        <main className='flex-1 p-4'>{children}</main>
+        <footer className='border-t p-4 text-center'>© 2026</footer>
+      </div>
+    </ThemeProvider>
   );
 }
 
