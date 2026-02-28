@@ -2,12 +2,24 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Better signal handling for dev servers (graceful stop, no zombies)
+RUN apk add --no-cache dumb-init
+
+# File watching reliability when using bind mounts (common on macOS/Windows)
 ENV CHOKIDAR_USEPOLLING=true
+ENV CHOKIDAR_INTERVAL=250
 
 COPY package*.json ./
 
-RUN npm install
+# Deterministic install (requires package-lock.json)
+# Use BuildKit cache for faster rebuilds
+RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --no-fund
+
+# Optional: keep a copy of the source so the image can run even without a volume mount.
+# If you always mount the project into /app, this is still fine.
+COPY . .
 
 EXPOSE 5173
 
-CMD ["sh", "-c", "npm run dev -- --host 0.0.0.0"]
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--strictPort"]

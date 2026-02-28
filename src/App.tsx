@@ -5,7 +5,7 @@ function App() {
 
   return (
     <Layout>
-      <p>asdfsdf</p>
+      <p>asdfsdfsdfasdfsdfsdf</p>
     </Layout>
   )
 }
