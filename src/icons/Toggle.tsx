@@ -1,8 +1,8 @@
 const ToggleRightIcon = ({
   size = undefined,
-  color = "#000000",
+  color = '#000000',
   strokeWidth = 2,
-  background = "transparent",
+  background = 'transparent',
   opacity = 1,
   rotation = 0,
   shadow = 0,
@@ -12,8 +12,8 @@ const ToggleRightIcon = ({
 }) => {
   const transforms = [];
   if (rotation !== 0) transforms.push(`rotate(${rotation}deg)`);
-  if (flipHorizontal) transforms.push("scaleX(-1)");
-  if (flipVertical) transforms.push("scaleY(-1)");
+  if (flipHorizontal) transforms.push('scaleX(-1)');
+  if (flipVertical) transforms.push('scaleY(-1)');
 
   const viewBoxSize = 24 + padding * 2;
   const viewBoxOffset = -padding;
@@ -21,33 +21,33 @@ const ToggleRightIcon = ({
 
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns='http://www.w3.org/2000/svg'
       viewBox={viewBox}
       width={size}
       height={size}
-      fill="none"
+      fill='none'
       stroke={color}
       strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap='round'
+      strokeLinejoin='round'
       style={{
         opacity,
-        transform: transforms.join(" ") || undefined,
+        transform: transforms.join(' ') || undefined,
         filter:
           shadow > 0
             ? `drop-shadow(0 ${shadow}px ${shadow * 2}px rgba(0,0,0,0.3))`
             : undefined,
-        backgroundColor: background !== "transparent" ? background : undefined,
+        backgroundColor: background !== 'transparent' ? background : undefined,
       }}
     >
       <g
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        fill='none'
+        stroke='currentColor'
+        stroke-linecap='round'
+        stroke-linejoin='round'
       >
-        <rect width="22" height="14" x="1" y="5" rx="7" ry="7" />
-        <circle cx="16" cy="12" r="3" />
+        <rect width='22' height='14' x='1' y='5' rx='7' ry='7' />
+        <circle cx='16' cy='12' r='3' />
       </g>
     </svg>
   );
