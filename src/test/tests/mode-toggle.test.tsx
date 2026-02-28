@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ModeToggle } from '@/components/mode-toggle.tsx';
+import { ModeToggle } from '../../components/mode-toggle'; // TODO use @
 
-// Mock the theme provider hook
+// Mock the theme provider hook // TODO remove
 const setTheme = vi.fn();
-vi.mock('@/components/theme-provider', () => ({
+vi.mock('../../components/theme-provider', () => ({
+  // TODO use @
   useTheme: () => ({ setTheme }),
 }));
 
