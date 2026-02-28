@@ -1,5 +1,5 @@
-import "./App.css";
-import Layout from "@/layouts/main.tsx";
+import './App.css';
+import Layout from '@/layouts/main.tsx';
 
 function App() {
   return (
