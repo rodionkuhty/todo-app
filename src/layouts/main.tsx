@@ -30,7 +30,7 @@ export function MenubarMain() {
                 New Tab <MenubarShortcut>⌘T</MenubarShortcut>
               </MenubarItem>
               <MenubarItem>
-                New Window!! <MenubarShortcut>⌘N</MenubarShortcut>
+                New Window!!!! <MenubarShortcut>⌘N</MenubarShortcut>
               </MenubarItem>
               <MenubarItem disabled>New Incognito Window</MenubarItem>
             </MenubarGroup>

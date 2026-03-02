@@ -14,7 +14,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.js,ts,tsx,jsx": [
+    "*.{js,ts,tsx,jsx}": [
       "prettier --write"
     ]
   },
