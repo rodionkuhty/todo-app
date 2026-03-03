@@ -6,8 +6,6 @@ import {
   MenubarGroup,
   MenubarItem,
   MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
   MenubarSeparator,
   MenubarShortcut,
   MenubarSub,
@@ -23,16 +21,12 @@ export function MenubarMain() {
     <div className='flex justify-between'>
       <Menubar className='w-72'>
         <MenubarMenu>
-          <MenubarTrigger>File</MenubarTrigger>
+          <MenubarTrigger>Home</MenubarTrigger>
           <MenubarContent>
             <MenubarGroup>
               <MenubarItem>
-                New Tab <MenubarShortcut>⌘T</MenubarShortcut>
+                New Todo Task <MenubarShortcut>⌘T</MenubarShortcut>
               </MenubarItem>
-              <MenubarItem>
-                New Window <MenubarShortcut>⌘N</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem disabled>New Incognito Window</MenubarItem>
             </MenubarGroup>
             <MenubarSeparator />
             <MenubarGroup>
@@ -47,16 +41,10 @@ export function MenubarMain() {
                 </MenubarSubContent>
               </MenubarSub>
             </MenubarGroup>
-            <MenubarSeparator />
-            <MenubarGroup>
-              <MenubarItem>
-                Print... <MenubarShortcut>⌘P</MenubarShortcut>
-              </MenubarItem>
-            </MenubarGroup>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>Edit</MenubarTrigger>
+          <MenubarTrigger>Tasks</MenubarTrigger>
           <MenubarContent>
             <MenubarGroup>
               <MenubarItem>
@@ -92,7 +80,7 @@ export function MenubarMain() {
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>View</MenubarTrigger>
+          <MenubarTrigger>Settings</MenubarTrigger>
           <MenubarContent className='w-44'>
             <MenubarGroup>
               <MenubarCheckboxItem>Bookmarks Bar</MenubarCheckboxItem>
@@ -114,24 +102,6 @@ export function MenubarMain() {
             <MenubarSeparator />
             <MenubarGroup>
               <MenubarItem inset>Hide Sidebar</MenubarItem>
-            </MenubarGroup>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Profiles</MenubarTrigger>
-          <MenubarContent>
-            <MenubarRadioGroup value='benoit'>
-              <MenubarRadioItem value='andy'>Andy</MenubarRadioItem>
-              <MenubarRadioItem value='benoit'>Benoit</MenubarRadioItem>
-              <MenubarRadioItem value='Luis'>Luis</MenubarRadioItem>
-            </MenubarRadioGroup>
-            <MenubarSeparator />
-            <MenubarGroup>
-              <MenubarItem inset>Edit...</MenubarItem>
-            </MenubarGroup>
-            <MenubarSeparator />
-            <MenubarGroup>
-              <MenubarItem inset>Add Profile...</MenubarItem>
             </MenubarGroup>
           </MenubarContent>
         </MenubarMenu>
