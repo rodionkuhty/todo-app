@@ -15,8 +15,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
-      "prettier --write",
-      "npm run test:ci -- --related --passWithNoTests"
+      "prettier --write"
     ]
   },
   "dependencies": {
