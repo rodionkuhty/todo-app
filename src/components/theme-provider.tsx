@@ -48,10 +48,15 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
+  // TODO check it again
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'd' || e.key === 'D') {
-        console.log('Theme toggle key pressed');
+      const activeElement = document.activeElement;
+      const isTyping =
+        activeElement instanceof HTMLInputElement ||
+        activeElement instanceof HTMLTextAreaElement ||
+        activeElement?.getAttribute('contenteditable') === 'true';
+      if ((e.key === 'd' || e.key === 'D') && !isTyping) {
         setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
       }
     };
