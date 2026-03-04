@@ -48,6 +48,21 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'd' || e.key === 'D') {
+        console.log('Theme toggle key pressed');
+        setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [setTheme]);
+
   const value = {
     theme,
     setTheme: (theme: Theme) => {
