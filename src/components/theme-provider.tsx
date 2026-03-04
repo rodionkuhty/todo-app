@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -31,12 +31,12 @@ export function ThemeProvider({
   );
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    const root = globalThis.document.documentElement;
 
     root.classList.remove('light', 'dark');
 
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+      const systemTheme = globalThis.matchMedia('(prefers-color-scheme: dark)')
         .matches
         ? 'dark'
         : 'light';
@@ -63,13 +63,16 @@ export function ThemeProvider({
     };
   }, [setTheme]);
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
-  };
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme: (theme: Theme) => {
+        localStorage.setItem(storageKey, theme);
+        setTheme(theme);
+      },
+    }),
+    [storageKey, theme],
+  );
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
@@ -78,6 +81,7 @@ export function ThemeProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 
