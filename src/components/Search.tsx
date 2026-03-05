@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/input-group';
 import { Kbd } from '@/components/ui/kbd.tsx';
 import SearchModal from '@/components/modals/Search.tsx';
+import { shortcutManager } from '@/utils/ShortcutManager.ts';
 
 type Props = {
   readonly withKbd?: boolean;
@@ -75,19 +76,14 @@ export default function Search({
   useEffect(() => {
     if (!withKbd) return;
 
-    const onGlobalKeyDown = (e: KeyboardEvent) => {
-      const isK = e.key === 'k' || e.key === 'K';
-      const wantsShortcut = isMac ? e.metaKey : e.ctrlKey;
+    const shortcut = isMac ? 'meta+k' : 'ctrl+k';
 
-      if (!isK || !wantsShortcut) return;
-
-      e.preventDefault();
+    shortcutManager.register(shortcut, () => {
       inputRef.current?.focus();
       setOpen(true);
-    };
+    });
 
-    document.addEventListener('keydown', onGlobalKeyDown);
-    return () => document.removeEventListener('keydown', onGlobalKeyDown);
+    return () => shortcutManager.unregister(shortcut);
   }, [isMac, withKbd]);
 
   return (

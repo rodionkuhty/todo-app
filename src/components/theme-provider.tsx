@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { shortcutManager } from '@/utils/ShortcutManager.ts';
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -48,24 +49,11 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  // TODO check it again
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      const activeElement = document.activeElement;
-      const isTyping =
-        activeElement instanceof HTMLInputElement ||
-        activeElement instanceof HTMLTextAreaElement ||
-        activeElement?.getAttribute('contenteditable') === 'true';
-      if ((e.key === 'd' || e.key === 'D') && !isTyping) {
-        setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-    };
+    shortcutManager.register('D', () =>
+      setTheme((prev) => (prev === 'dark' ? 'light' : 'dark')),
+    );
+    return () => shortcutManager.unregister('D');
   }, [setTheme]);
 
   const value = useMemo(

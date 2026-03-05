@@ -6,9 +6,9 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 
 // Mock the theme provider hook
 const setTheme = vi.fn();
-const theme = 'light';
+let currentTheme = 'light';
 vi.mock('@/components/theme-provider', () => ({
-  useTheme: () => ({ setTheme, theme }),
+  useTheme: () => ({ setTheme, theme: currentTheme }),
 }));
 
 const renderWithProviders = (ui: React.ReactElement) => {
@@ -18,6 +18,7 @@ const renderWithProviders = (ui: React.ReactElement) => {
 describe('ModeToggle', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    currentTheme = 'light';
   });
 
   it('renders button with accessible name', () => {
@@ -26,7 +27,7 @@ describe('ModeToggle', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('calls setTheme with toggled theme when clicked', async () => {
+  it('calls setTheme with "dark" when light theme is active and clicked', async () => {
     const user = userEvent.setup();
     renderWithProviders(<ModeToggle />);
 
@@ -37,5 +38,19 @@ describe('ModeToggle', () => {
     await user.click(toggleThemeButton);
 
     expect(setTheme).toHaveBeenCalledWith('dark');
+  });
+
+  it('calls setTheme with "light" when dark theme is active and clicked', async () => {
+    currentTheme = 'dark';
+    const user = userEvent.setup();
+    renderWithProviders(<ModeToggle />);
+
+    const toggleThemeButton = screen.getByRole('button', {
+      name: /toggle theme/i,
+    });
+
+    await user.click(toggleThemeButton);
+
+    expect(setTheme).toHaveBeenCalledWith('light');
   });
 });
