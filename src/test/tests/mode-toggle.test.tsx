@@ -1,14 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ModeToggle } from '../../components/mode-toggle'; // TODO use @
+import { ModeToggle } from '@/components/mode-toggle';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
-// Mock the theme provider hook // TODO remove
+// Mock the theme provider hook
 const setTheme = vi.fn();
-vi.mock('../../components/theme-provider', () => ({
-  // TODO use @
-  useTheme: () => ({ setTheme }),
+const theme = 'light';
+vi.mock('@/components/theme-provider', () => ({
+  useTheme: () => ({ setTheme, theme }),
 }));
+
+const renderWithProviders = (ui: React.ReactElement) => {
+  return render(<TooltipProvider>{ui}</TooltipProvider>);
+};
 
 describe('ModeToggle', () => {
   beforeEach(() => {
@@ -16,32 +21,21 @@ describe('ModeToggle', () => {
   });
 
   it('renders button with accessible name', () => {
-    render(<ModeToggle />);
+    renderWithProviders(<ModeToggle />);
     const button = screen.getByRole('button', { name: /toggle theme/i });
     expect(button).toBeInTheDocument();
   });
 
-  it('calls setTheme with correct theme when menu items are clicked', async () => {
+  it('calls setTheme with toggled theme when clicked', async () => {
     const user = userEvent.setup();
-    render(<ModeToggle />);
+    renderWithProviders(<ModeToggle />);
 
     const toggleThemeButton = screen.getByRole('button', {
       name: /toggle theme/i,
     });
 
-    const cases = [
-      { label: 'Light', theme: 'light' as const },
-      { label: 'Dark', theme: 'dark' as const },
-      { label: 'System', theme: 'system' as const },
-    ];
+    await user.click(toggleThemeButton);
 
-    for (const { label, theme } of cases) {
-      await user.click(toggleThemeButton);
-
-      const menuItem = await screen.findByRole('menuitem', { name: label });
-      await user.click(menuItem);
-
-      expect(setTheme).toHaveBeenCalledWith(theme);
-    }
+    expect(setTheme).toHaveBeenCalledWith('dark');
   });
 });

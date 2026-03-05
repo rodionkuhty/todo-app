@@ -1,17 +1,20 @@
 import { ModeToggle } from '@/components/mode-toggle.tsx';
 import Search from '@/components/Search.tsx';
 import Settings from '@/components/Settings';
+import { cn } from '@/lib/utils';
 
-export function UsersAria() {
+export function UsersAria({
+  className,
+  withKbd = true,
+}: {
+  readonly className?: string;
+  readonly withKbd?: boolean;
+}) {
   return (
-    <div className='flex items-center bg-background text-foreground'>
-      <div className='mr-1.5'>
-        <Search withKbd />
-      </div>
+    <div className={cn('flex items-center gap-1.5', className)}>
+      <Search withKbd={withKbd} />
       <ModeToggle />
-      <div className='ml-1.5'>
-        <Settings />
-      </div>
+      <Settings />
     </div>
   );
 }

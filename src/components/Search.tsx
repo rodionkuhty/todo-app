@@ -91,7 +91,7 @@ export default function Search({
   }, [isMac, withKbd]);
 
   return (
-    <div className='flex items-center bg-background text-foreground'>
+    <div className='flex items-center'>
       <Field>
         <InputGroup>
           <InputGroupInput
