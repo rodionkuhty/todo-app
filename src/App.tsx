@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
 import Tasks from '@/pages/Tasks';
 import Settings from '@/pages/Settings';
+import Profile from '@/pages/Profile';
+import Billing from '@/pages/Billing';
 import Layout from '@/layouts/main.tsx';
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/tasks' element={<Tasks />} />
           <Route path='/settings' element={<Settings />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/billing' element={<Billing />} />
         </Routes>
       </Layout>
     </BrowserRouter>
