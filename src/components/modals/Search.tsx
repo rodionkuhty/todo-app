@@ -44,7 +44,7 @@ const getDefaultCommands = (pathname: string) => {
 };
 
 export default function SearchModal({ open, setOpen }: Props) {
-  console.log('rerender');
+  // TODO check for rerenders
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

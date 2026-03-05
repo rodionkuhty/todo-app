@@ -29,7 +29,7 @@ function detectIsMac(): boolean {
   if (typeof navigator === 'undefined') return false;
 
   const platform =
-    navigator.userAgentData?.platform ?? navigator.platform ?? '';
+    (navigator as any).userAgentData?.platform ?? navigator.platform ?? '';
   return /mac/i.test(platform);
 }
 

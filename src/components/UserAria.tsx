@@ -1,5 +1,6 @@
 import { ModeToggle } from '@/components/mode-toggle.tsx';
 import Search from '@/components/Search.tsx';
+import Settings from '@/components/Settings';
 
 export function UsersAria() {
   return (
@@ -8,6 +9,9 @@ export function UsersAria() {
         <Search withKbd />
       </div>
       <ModeToggle />
+      <div className='ml-1.5'>
+        <Settings />
+      </div>
     </div>
   );
 }
