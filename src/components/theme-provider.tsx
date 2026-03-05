@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { shortcutManager } from '@/utils/ShortcutManager.ts';
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -31,12 +32,12 @@ export function ThemeProvider({
   );
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    const root = globalThis.document.documentElement;
 
     root.classList.remove('light', 'dark');
 
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+      const systemTheme = globalThis.matchMedia('(prefers-color-scheme: dark)')
         .matches
         ? 'dark'
         : 'light';
@@ -48,13 +49,23 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
-  };
+  useEffect(() => {
+    shortcutManager.register('D', () =>
+      setTheme((prev) => (prev === 'dark' ? 'light' : 'dark')),
+    );
+    return () => shortcutManager.unregister('D');
+  }, [setTheme]);
+
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme: (theme: Theme) => {
+        localStorage.setItem(storageKey, theme);
+        setTheme(theme);
+      },
+    }),
+    [storageKey, theme],
+  );
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
@@ -63,6 +74,7 @@ export function ThemeProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 
